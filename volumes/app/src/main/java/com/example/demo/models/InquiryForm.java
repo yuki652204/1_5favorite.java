@@ -1,5 +1,5 @@
 package com.example.demo.models;
-
+//お問い合わせ画面保存
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 import lombok.Data;
 
-@Data
+//@Data
 @Entity
 @Table(name = "inquiry")
 public class InquiryForm implements Serializable {
@@ -22,8 +22,9 @@ public class InquiryForm implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-
+	private Long id;
+//EntityのIDは 必ず Long
+	
 	@NotBlank
 	@Size(max = 10)
 	private String name;
@@ -37,6 +38,14 @@ public class InquiryForm implements Serializable {
 	private String content;
 	
 	
+	public Long getId() { //longにする
+        return id;
+    }
+
+    public void setId(Long id) { //longにする
+        this.id = id;
+    }
+    
 	public String getName() {
         return name;
     }
@@ -60,9 +69,16 @@ public class InquiryForm implements Serializable {
     public void setContent(String content) {
         this.content = content;
     }
+    
+ // --- toString メソッド ---
+    @Override
+    public String toString() {
+        return "InquiryForm [id=" + id + ", name=" + name + ", mail=" + mail + ", content=" + content + "]";
+    }
 
     // フォームをリセットするメソッド
     public void clear() {
+    	
         this.name = null;
         this.mail = null;
         this.content = null;

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	
+<head>
+	<link rel="stylesheet" th:href="@{/css/shop.css}">
+
+    <meta charset="UTF-8">
+    <title>商品一覧</title>
+
+	<!-- Favicon -->
+	<link rel="icon" type="image/png" th:href="@{/img/favicon2.png}">
+	    <link rel="stylesheet" th:href="@{/css/shop.css}">
+</head>
+<body>
+	
+	<header>
+	        <div class="header-container">
+	            <a th:href="@{/}">
+	                <img th:src="@{/img/headerimg.png}" alt="ホームへ戻る" class="top-img">
+					<span class="header-text">ホームへ戻る</span>
+	            </a>
+	        </div>
+	    </header>
+		
+<h1>商品一覧</h1>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>商品名</th>
+		<th>値段</th>
+        <th>詳細</th>
+        <th>サイズ</th>
+        <th>色</th>
+        <th>在庫状況</th>
+        <th>お気に入り</th> </tr>
+
+		<tr th:each="product : ${products}">
+		        <td th:text="${product.id}"></td>
+		        <td th:text="${product.name}"></td>
+		        <td th:text="${product.price}"></td>
+		        <td th:text="${product.description}"></td>	
+
+		        <td>
+		            <ul>
+		                <li th:each="v : ${product.variants}" th:if="${v.size != null}" th:text="${v.size.name}"></li>
+		                <li th:if="${#lists.isEmpty(product.variants) or product.variants[0].size == null}">-</li>
+		            </ul>
+		        </td>
+
+		        <td>
+		            <ul>
+		                <li th:each="v : ${product.variants}" th:if="${v.color != null}" th:text="${v.color.name}"></li>
+		                <li th:if="${#lists.isEmpty(product.variants) or product.variants[0].color == null}">-</li>
+		            </ul>
+		        </td>
+
+		        <td>
+		            <ul>
+		                <li th:each="v : ${product.variants}">
+		                    <span th:if="${v.stock > 0}">在庫あり</span>
+		                    <span th:if="${v.stock <= 0}" style="color:red;">在庫なし</span>
+		                </li>
+		            </ul>
+		        </td>
+				<!-- お気に入りぼたん -->
+				<td>
+				    <div th:if="${product != null}">
+				        
+				        <form th:if="${favoriteProductIds != null and favoriteProductIds.contains(product.id)}" 
+				              th:action="@{/favorite/{id}/remove(id=${product.id})}" method="post">
+				            <button type="submit" class="btn-favorite remove">★ 解除</button>
+				        </form>
+				        
+				        <form th:unless="${favoriteProductIds != null and favoriteProductIds.contains(product.id)}" 
+				              th:action="@{/favorite/{id}/add(id=${product.id})}" method="post">
+				            <button type="submit" class="btn-favorite add">☆ 追加</button>
+				        </form>
+				        
+				    </div>
+				</td>
+		    </tr> <tr th:if="${#lists.isEmpty(products)}">
+		        <td colspan="8" style="text-align:center;">登録されている商品はありません</td>
+		    </tr>
+		</table>
+		<!-- お気に入りを削除したときのエラー -->
+		<script th:if="${errorMessage}" th:inline="javascript">
+		    const errorMsg = /*[[${errorMessage}]]*/ 'エラー';
+		    alert(errorMsg);
+		</script>
+
+</body>
+</html>

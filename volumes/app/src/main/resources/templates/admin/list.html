@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" media="all" th:href="@{/css/admin.css}" />
+    <title>管理画面一覧</title>
+	<!-- Favicon -->
+		<link rel="icon" type="image/png" th:href="@{/img/favicon3.png}">
+</head>
+<body>
+
+<h1>お問い合わせ一覧</h1>
+<div th:if="${message}" style="color: firebrick; font-weight: bold; margin-bottom: 15px;">
+    <span th:text="${message}"></span>
+</div>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>名前</th>
+            <th>メールアドレス</th>
+            <th>お問い合わせ内容</th>
+            <th>アクション</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="inquiry : ${inquiries}">
+            <td th:text="${inquiry.id}"></td>
+            <td th:text="${inquiry.name}"></td>
+            <td th:text="${inquiry.mail}"></td>
+            <td th:text="${inquiry.content}"></td>
+            <td>
+                <form th:action="@{/admin/products/inquiry/delete/{id}(id=${inquiry.id})}" method="post"
+                    onsubmit="return confirm('マジで削除しますか？');"> <!-- js --> 
+                    <button type="submit" class="btn-delete">削除</button>
+                </form>
+            </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(inquiries)}">
+            <td colspan="5">お問い合わせはありません</td>
+        </tr>
+    </tbody>
+</table>
+
+<hr>
+<h2>商品一覧管理編集</h2>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>商品名</th>
+            <th>価格</th>
+            <th>商品詳細</th>
+            <th>在庫状況</th>
+            <th>お気に入り</th> <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="product : ${products}">
+            <td th:text="${product.id}"></td>
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.price}"></td>   
+            <td th:text="${product.description}"></td>
+            <td>
+                <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.85em;">
+                    <li th:each="variant : ${product.variants}">
+                        <span th:text="${variant.color.label}"></span> / 
+                        <span th:text="${variant.size.label}"></span> : 
+                        残り<strong th:text="${variant.stock}"></strong>個
+                    </li>
+                </ul>
+                <span th:if="${#lists.isEmpty(product.variants)}">未登録</span>
+            </td>
+            <td>
+                <span th:if="${#lists.size(product.favorites) > 0}" style="color: orange; font-weight: bold;">
+                    ★ <span th:text="${#lists.size(product.favorites)}"></span>件
+                </span>
+                <span th:unless="${#lists.size(product.favorites) > 0}" style="color: #ccc;">0</span>
+            </td>
+            <td>
+                <div style="display: flex; gap: 5px; align-items: center;">
+                    <a th:href="@{/admin/products/edit/{id}(id=${product.id})}" class="btn-edit">編集</a>
+                    <form th:action="@{/admin/products/delete/{id}(id=${product.id})}" method="post"
+                          onsubmit="return confirm('この商品をマジで削除してもよろしいですか？');">
+                        <button type="submit" class="btn-delete">削除</button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+<script th:inline="javascript">
+/*<![CDATA[*/
+    // 1. Controllerの RedirectAttributes.addFlashAttribute("errorMessage", ...) を受け取る
+    const errorMsg = /*[[${errorMessage}]]*/ null;
+    
+    // 2. もしメッセージがあればアラートを出す
+    if (errorMsg) {
+        alert(errorMsg);
+    }
+
+    // 3. 通常のメッセージ (削除完了など) も出したい場合
+    const successMsg = /*[[${message}]]*/ null;
+    if (successMsg) {
+        console.log("Success:", successMsg);
+        // 必要ならここも alert(successMsg); にしてください
+    }
+/*]]>*/
+</script>
+
+
+</body>
+</html>
