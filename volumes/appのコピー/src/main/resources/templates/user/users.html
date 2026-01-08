@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>マイページ</title>
+    <link rel="stylesheet" th:href="@{/css/users.css}">
+</head>
+<body>
+
+    <div class="card">
+        <h1>マイページ</h1>
+        <p>
+            ユーザー名：
+            <span th:text="${user.name}">名前が入ります</span>
+        </p>
+
+        <p>
+            <a th:href="@{/user/edit(id=${user.id})}" class="edit-link">名前を編集する</a>
+        </p>		// Controller側の受け口@GetMapping("/edit")にいく
+        
+        <hr>
+        <a th:href="@{/}" class="back-link">ホームに戻る</a>
+    </div>
+
+</body>
+</html>

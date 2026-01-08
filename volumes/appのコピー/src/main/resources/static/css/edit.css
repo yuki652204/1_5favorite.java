@@ -1,0 +1,85 @@
+/* edit.css */
+:root {
+  --bg: #f5f6f8;
+  --card: #ffffff;
+  --text: #333;
+  --primary: #2f80ed;
+  --secondary: #6c757d;
+  --border: #ddd;
+}
+
+body {
+    font-family: "Segoe UI", "Hiragino Kaku Gothic ProN", sans-serif;
+    background-color: var(--bg);
+    margin: 40px;
+    color: var(--text);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* フォームをカード状に整える */
+form {
+    max-width: 500px;
+    margin: 0 auto;
+    background: var(--card);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* ラベルを太字にして上に配置 */
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+/* 入力欄を横幅いっぱいにする */
+input[type="text"],
+input[type="number"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px; /* 次の項目との間隔 */
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    box-sizing: border-box; /* paddingを含めて100%にする */
+    font-size: 16px;
+}
+
+textarea {
+    height: 120px;
+    resize: vertical;
+}
+
+/* ボタンの横並び調整 */
+button[type="submit"] {
+    background-color: var(--primary);
+    color: white;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.2s;
+}
+
+button[type="submit"]:hover {
+    background-color: #1a66cc;
+}
+
+/* 戻るボタン（リンク）をボタン風に見せる */
+a[th\:href], a {
+    display: inline-block;
+    margin-left: 15px;
+    color: var(--secondary);
+    text-decoration: none;
+    font-size: 14px;
+}
+
+a:hover {
+    text-decoration: underline;
+}

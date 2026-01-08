@@ -1,0 +1,94 @@
+/* shop.css */
+:root {
+  --bg: #f5f6f8;
+  --card: #ffffff;
+  --text: #333;
+  --primary: #2f80ed;
+  --danger: #eb5757;
+  --border: #ddd;
+}
+
+.header-text {
+    font-size: 14px;
+    color: #333;
+    font-weight: bold;
+    vertical-align: middle; /* 画像と横並びの時の高さを合わせる */
+    margin-left: 10px;      /* 画像との間隔 */
+    text-decoration: none;  /* リンクの下線を消す */
+}
+
+/* 親のaタグの下線を消す設定も必要 */
+.header-link {
+    text-decoration: none;
+}
+
+header {
+    padding: 15px;
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+}
+
+top-img {
+    height: 50px; /* お好みの高さに調整してください */
+    width: auto;
+    cursor: pointer; /* 重ねた時にマウスカーソルを指の形にする */
+    border: none;    /* リンクの枠線を消す */
+}
+
+/* 画像にホバーした時に少し透明にする（リンクだとわかりやすくする） */
+top-img:hover {
+    opacity: 0.8;
+}
+
+body.admin {
+  background: var(--bg);
+  font-family: "Segoe UI", "Hiragino Kaku Gothic ProN", sans-serif;
+  margin: 0;
+  padding: 20px;
+  color: var(--text);
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card);
+}
+
+th {
+	background-color: #04096c;
+	           color: #fff;
+  font-weight: 600;
+}
+
+th, td {
+  border: 1px solid var(--border);
+  padding: 10px;
+  text-align: left;
+}
+
+tr:hover {
+  background: #fafafa;
+}
+
+.btn-edit {
+  background: #00ffff;
+  color: #000;
+  padding: 6px 10px;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+.btn-delete {
+  background: var(--danger);
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+

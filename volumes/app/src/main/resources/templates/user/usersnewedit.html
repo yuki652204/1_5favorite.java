@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ユーザー編集</title>
+	<link rel="stylesheet" th:href="@{/css/usersnewedit.css}">
+</head>
+<body>
+    <div class="card">
+        <h1>ユーザー編集</h1>
+        <form th:action="@{/user/update}" method="post">
+            <input type="hidden" name="id" th:value="${user.id}">
+            
+            <label>名前：</label>
+            <input type="text" name="name" th:value="${user.name}">
+            
+            <button type="submit">更新する</button>
+        </form>
+        <a th:href="@{/}" class="back-link">キャンセルして戻る</a>
+    </div>
+</body>
+</html>

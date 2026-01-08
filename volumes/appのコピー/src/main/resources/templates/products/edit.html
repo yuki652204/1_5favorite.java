@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+	
+
+<head>
+    <meta charset="UTF-8">
+    <title>商品編集</title>
+	<link rel="stylesheet" th:href="@{/css/edit.css}">
+</head>
+<body>
+
+<h1>商品編集</h1>
+
+<form
+  th:object="${product}"
+  th:action="@{${product.id} != null ?
+      '/admin/products/update/' + ${product.id} :
+      '/admin/products/save'}"
+  method="post">
+
+    <label>商品名:</label>
+    <input type="text" th:field="*{name}"><br><br>
+
+    <label>価格:</label>
+    <input type="number" th:field="*{price}"><br><br>
+	<p th:if="${#fields.hasErrors('price')}" th:errors="*{price}" style="color:red;">正しい金額をいれてください</p>
+
+    <label>商品詳細:</label>
+    <textarea th:field="*{description}"></textarea><br><br>
+
+    <button type="submit"
+        th:text="${product.id != null} ? '更新' : '保存'">
+        保存
+    </button>
+
+    <a th:href="@{/admin/products}">戻る</a>
+
+<h2>バリエーション設定</h2>
+<div class="option-toggle">
+    <input type="checkbox" id="useVariants" onchange="toggleVariantInputs()" checked>
+    <label for="useVariants">サイズ・カラーを指定する</label>
+</div>
+
+<div id="variant-section">
+    <div th:each="variant, stat : *{variants}" class="variant-item">
+        <input type="hidden" th:field="*{variants[__${stat.index}__].id}">
+        
+        <div class="input-group">
+            <label>在庫数:</label>
+            <input type="number" th:field="*{variants[__${stat.index}__].stock}" required>
+        </div>
+
+        <div class="variant-specific-fields">
+            <label>サイズ:</label>
+            <select th:field="*{variants[__${stat.index}__].size}"required>
+                <option value="">選択してください</option>
+                <option th:each="s : ${sizes}" th:value="${s.id}" th:text="${s.name}"></option>
+            </select>
+
+            <label>カラー:</label>
+            <select th:field="*{variants[__${stat.index}__].color}"required>
+                <option value="">選択してください</option>
+                <option th:each="c : ${colors}" th:value="${c.id}" th:text="${c.name}"></option>
+            </select>
+        </div>
+    </div>
+</div>
+</form>
+
+</body>
+</html>
