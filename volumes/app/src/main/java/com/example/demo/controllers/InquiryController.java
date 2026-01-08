@@ -21,7 +21,7 @@ public class InquiryController {
     // finalをつけることで「後から書き換え不可」にし、安全性を高めている（プロの現場での推奨）
     private final InquiryService inquiryService;
 
-    @Autowired // コンストラクタを使って InquiryService をこのクラスに注入（Dependency Injection）する
+   
     public InquiryController(InquiryService inquiryService) {
         this.inquiryService = inquiryService;
     }
