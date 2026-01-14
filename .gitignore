@@ -3,13 +3,20 @@
 
 # Maven
 target/
-pom.xml.tag
-pom.xml.releaseBackup
-pom.xml.versionsBackup
-pom.xml.next
-release.properties
+*.jar
+*.war
+*.ear
+# .m2フォルダ（ライブラリ）はリポジトリに含めない
+.m2/
+repository/
 
-# IDE
+# IDE (Eclipse/STS)
+.settings/
+.classpath
+.project
+.factorypath
+
+# IDE (IntelliJ/VSCode)
 *.iml
 .idea/
 .vscode/
@@ -17,9 +24,15 @@ release.properties
 # Logs
 *.log
 
-# OS
-.DS_Store
-
-# Docker
+# Docker & Database
+# DBのデータ（binlogや実際のデータファイル）は含めない
+volumes/db/data/*
+!volumes/db/data/.gitkeep
+# コンテナ用の一時ファイルなど
 docker/*.env
 docker/*.log
+
+# Temporary / Backup
+*.zip
+*.tar.gz
+*のコピー/
