@@ -43,7 +43,7 @@ import com.example.demo.repositories.ProductRepository;
  * データの設計図（Model / Entity）に関するインポート
  * --------------------------------------------------------- */
 // 「商品とは何か（ID、名前、価格）」というデータの定義を使用するために必要
-import com.example.demo.models.Product; 
+import com.example.demo.models.entity.Product;
 
 // 「ユーザーとは何か（ID、名前）」というデータの定義を使用するために必要
 import com.example.demo.models.User; 
@@ -102,8 +102,8 @@ public class FavoriteController {
         Set<Long> favoriteProductIds = favoriteService.getFavoriteProductIds(1L);
         model.addAttribute("favoriteProductIds", favoriteProductIds);
 
-        // templates/shop/item_list.html を表示しなさいという命令
-        return "shop/item_list"; 
+        // templates/admin/list.html を表示しなさいという命令
+        return "admin/list"; 
     }
 
     /**
@@ -131,7 +131,7 @@ public class FavoriteController {
         favoriteService.addFavorite(getLoginUser(), product);
 
         // 3. 処理が終わったら、商品一覧ページへ強制移動（リダイレクト）させて画面を更新する
-        return "redirect:/favorite/shop/item";
+        return "redirect:/shop/item";
     }
 
     /**
@@ -149,6 +149,6 @@ public class FavoriteController {
         favoriteService.removeFavorite(getLoginUser(), product);
 
         // 3. 一覧ページへ戻す
-        return "redirect:/favorite/shop/item";
+        return "redirect:/shop/item";
     }
 }

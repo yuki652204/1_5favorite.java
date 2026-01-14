@@ -43,7 +43,7 @@ import com.example.demo.repositories.ProductRepository;
  * データの設計図（Model / Entity）に関するインポート
  * --------------------------------------------------------- */
 // 「商品とは何か（ID、名前、価格）」というデータの定義を使用するために必要
-import com.example.demo.models.Product; 
+import com.example.demo.models.entity.Product;
 
 // 「ユーザーとは何か（ID、名前）」というデータの定義を使用するために必要
 import com.example.demo.models.User; 

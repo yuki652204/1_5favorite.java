@@ -1,14 +1,15 @@
 package com.example.demo.services;
 
 import java.util.List; // 追加：Listを使うために必要
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.demo.models.Product;
+
 import com.example.demo.models.ProductVariant;
 import com.example.demo.repositories.ProductRepository;
 import com.example.demo.repositories.FavoriteRepository;
-
+import com.example.demo.models.entity.Product;
 @Service
 @Transactional
 public class ProductService {

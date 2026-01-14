@@ -1,9 +1,9 @@
 package com.example.demo.config;
 
 import java.util.Collection;
-import java.util.Collections;
 import com.example.demo.models.User;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class UserDetailsImpl implements UserDetails {
@@ -13,26 +13,25 @@ public class UserDetailsImpl implements UserDetails {
         this.user = user;
     }
 
-    
-    
+    // 重複を解消：roleを返す方だけを残します
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.emptyList(); // 今回は権限（ロール）は空でOK
+        // データベースのrole文字列（ROLE_ADMINなど）を権限として返します
+        return AuthorityUtils.createAuthorityList(user.getRole());
     }
     
     @Override
     public String getPassword() {
-        // 空ではなく、何かしら適当な文字を返しておきます
-        return "password";
+        // DBから取得したパスワードを返します
+        return user.getPassword();
     }
-
 
     @Override
     public String getUsername() {
         return user.getName(); // DBのnameをログインIDとして使う
     }
 
-    // 全て true に設定してください
+    // 全て true に設定
     @Override public boolean isAccountNonExpired() { return true; }
     @Override public boolean isAccountNonLocked() { return true; }
     @Override public boolean isCredentialsNonExpired() { return true; }

@@ -9,6 +9,6 @@ public interface FavoriteRepository extends JpaRepository<Favorite, Long> {
     Optional<Favorite> findByUserIdAndProductId(Long userId, Long productId);
     List<Favorite> findByUserId(Long userId);
     
-    // 全角スペースを取り除いた純粋な半角コード
+    
     long countByProductId(Long productId);
 }

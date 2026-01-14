@@ -1,7 +1,5 @@
 package com.example.demo.controllers; // このクラスが「コントローラー層」に属することを宣言
 
-// Spring Frameworkやバリデーション、自作クラスなどの必要な部品をインポート
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,7 +19,7 @@ public class InquiryController {
     // finalをつけることで「後から書き換え不可」にし、安全性を高めている（プロの現場での推奨）
     private final InquiryService inquiryService;
 
-    @Autowired // コンストラクタを使って InquiryService をこのクラスに注入（Dependency Injection）する
+   
     public InquiryController(InquiryService inquiryService) {
         this.inquiryService = inquiryService;
     }

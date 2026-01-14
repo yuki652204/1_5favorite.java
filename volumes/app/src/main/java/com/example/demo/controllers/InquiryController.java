@@ -1,7 +1,5 @@
 package com.example.demo.controllers; // このクラスが「コントローラー層」に属することを宣言
 
-// Spring Frameworkやバリデーション、自作クラスなどの必要な部品をインポート
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;

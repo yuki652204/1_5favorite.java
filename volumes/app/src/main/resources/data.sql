@@ -1,0 +1,1 @@
+INSERT INTO users (name, password) SELECT 'admin', 'admin123' WHERE NOT EXISTS (SELECT 1 FROM users WHERE name = 'admin');
