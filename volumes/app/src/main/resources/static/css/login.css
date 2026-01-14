@@ -19,12 +19,6 @@ body {
     box-sizing: border-box;  /* パディングを幅に含める */
 }
 
-h2 {
-    color: #333;
-    margin-bottom: 2rem;     /* タイトル下の余白 */
-    text-align: center;      /* 文字を中央に */
-    font-size: 1.5rem;
-}
 
 .input-group {
     margin-bottom: 1.2rem;   /* 入力欄どうしの間隔 */
@@ -66,12 +60,36 @@ button:hover {
     background-color: #555;
 }
 
+
+
+/* h2タイトルの余白調整 */
+h2 {
+    color: #333;
+    margin-top: 0;           /* ★コンテナ上部との隙間をゼロにしてパディングで制御 */
+    margin-bottom: 1.5rem;   /* タイトル下の余白を少し詰めるとバランスが良いです */
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+/* ログアウト成功時のメッセージ用（追加） */
+.success-message {
+    color: #059669;          /* 緑色 */
+    background-color: #ecfdf5;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 0.85rem;
+    border: 1px solid #d1fae5;
+}
+
+/* エラーメッセージの微調整 */
 .error-message {
     color: #dc2626;
     background-color: #fee2e2;
     padding: 10px;
     border-radius: 6px;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.5rem;   /* 下の入力欄との間隔 */
     text-align: center;
     font-size: 0.85rem;
 }

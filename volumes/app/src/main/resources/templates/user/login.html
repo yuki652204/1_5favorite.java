@@ -1,20 +1,39 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<link rel="stylesheet" th:href="@{/css/login.css}">
 <head>
     <meta charset="UTF-8">
     <title>ユーザーログイン</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
 </head>
 <body>
-    <h2>ユーザーログイン</h2>
-    <div th:if="${param.error}" style="color: red;">名前またはパスワードが違います</div>
-    
-    <form th:action="@{/login}" method="post">
-        <div><label>ユーザー名：<input type="text" name="username"/></label></div>
-        <div><label>パスワード：<input type="password" name="password"/></label></div>
-        <button type="submit">ログイン</button>
-    </form>
-    <br>
-   
+
+    <div class="login-container">
+        
+        <h2>ユーザーログイン</h2>
+        
+        <div th:if="${param.error}" class="error-message">
+            名前またはパスワードが違います
+        </div>
+
+        <div th:if="${param.logout}" class="success-message">
+            ログアウトに成功しました。
+        </div>
+        
+        <form th:action="@{/login}" method="post">
+            <div class="input-group">
+                <label>ユーザー名</label>
+                <input type="text" name="username" placeholder="ユーザー名を入力"/>
+            </div>
+            
+            <div class="input-group">
+                <label>パスワード</label>
+                <input type="password" name="password" placeholder="パスワードを入力"/>
+            </div>
+            
+            <button type="submit">ログイン</button>
+        </form>
+
+    </div>
+
 </body>
 </html>

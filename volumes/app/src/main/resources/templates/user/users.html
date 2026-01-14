@@ -20,6 +20,11 @@
         
         <hr>
         <a th:href="@{/}" class="back-link">ホームに戻る</a>
+		
+		<!--ログアウトボタン-->>
+		<form th:action="@{/logout}" method="post">
+		    <button type="submit" class="btn-logout">ログアウト</button>
+		</form>
     </div>
 
 </body>
