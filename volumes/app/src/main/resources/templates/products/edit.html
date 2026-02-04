@@ -19,14 +19,16 @@
   method="post">
 
     <label>商品名:</label>
-    <input type="text" th:field="*{name}"><br><br>
+	<input type="text" th:field="*{name}" required> <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color:red;"></p>
+	<br>
 
     <label>価格:</label>
-    <input type="number" th:field="*{price}"><br><br>
-	<p th:if="${#fields.hasErrors('price')}" th:errors="*{price}" style="color:red;">正しい金額をいれてください</p>
-
+	<input type="number" th:field="*{price}" required> <p th:if="${#fields.hasErrors('price')}" th:errors="*{price}" style="color:red;"></p>
+	<br>
+	
     <label>商品詳細:</label>
-    <textarea th:field="*{description}"></textarea><br><br>
+	<input type="text" th:field="*{description}" required> <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" style="color:red;"></p>
+	<br>
 
     <button type="submit"
         th:text="${product.id != null} ? '更新' : '保存'">
@@ -45,10 +47,10 @@
     <div th:each="variant, stat : *{variants}" class="variant-item">
         <input type="hidden" th:field="*{variants[__${stat.index}__].id}">
         
-        <div class="input-group">
-            <label>在庫数:</label>
-            <input type="number" th:field="*{variants[__${stat.index}__].stock}" required>
-        </div>
+		<div class="input-group">
+		    <label>在庫数:</label>
+		    <input type="number" th:field="*{variants[__${stat.index}__].stock}" required min="0">
+		</div>
 
         <div class="variant-specific-fields">
             <label>サイズ:</label>

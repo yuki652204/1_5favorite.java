@@ -8,14 +8,19 @@
 <body>
     <div class="card">
         <h1>ユーザー編集</h1>
-        <form th:action="@{/user/update}" method="post">
-            <input type="hidden" name="id" th:value="${user.id}">
-            
-            <label>名前：</label>
-            <input type="text" name="name" th:value="${user.name}">
-            
-            <button type="submit">更新する</button>
-        </form>
+		
+		<form th:action="@{/user/update}" th:object="${userForm}" method="post">
+		    <input type="hidden" th:field="*{id}">
+
+		    <div>
+		        <label>名前:</label>
+		        
+				<input type="text" th:field="*{name}" th:errorclass="input-error">
+		        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color:red;"></p>
+		    </div>
+
+		    <button type="submit">更新</button>
+		</form>
         <a th:href="@{/}" class="back-link">キャンセルして戻る</a>
     </div>
 </body>

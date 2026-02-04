@@ -12,26 +12,38 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
+
+
 
 import com.example.demo.models.Favorite;
 import com.example.demo.models.ProductVariant;
 
 @Entity
 @Table(name = "products")
+
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // 修正ポイント：入力チェック用アノテーションを追加
+    @NotBlank(message = "商品詳細は必須入力です")
+    @NotBlank(message = "商品名は必須入力です") 
+    @Size(max = 100, message = "商品名は100文字以内で入力してください")
     @Column(nullable = false, length = 100)
     private String name;
 
+    @Size(max = 500, message = "商品説明は500文字以内で入力してください")
     @Column(length = 500)
     private String description;
 
+    @Min(value = 1, message = "価格は1円以上に設定してください")
     private int price;
-
     // 【お気に入りとのリレーション】
     // 同パッケージではない場合は import が必要ですが、構成に合わせて調整してください
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)

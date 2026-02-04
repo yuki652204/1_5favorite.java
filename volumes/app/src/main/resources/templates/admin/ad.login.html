@@ -2,14 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>ユーザーログイン</title>
+    <title>管理者用ログイン</title>
     <link rel="stylesheet" th:href="@{/css/login.css}">
 </head>
 <body>
 
     <div class="login-container">
         
-        <h2>ユーザーログイン</h2>
+        <h2>あどみんログイン</h2>
         
         <div th:if="${param.error}" class="error-message">
             名前またはパスワードが違います
@@ -19,10 +19,10 @@
             ログアウトに成功しました。
         </div>
         
-        <form th:action="@{/user/login}" method="post">
+        <form th:action="@{/admin/login}" method="post">
             <div class="input-group">
-                <label>ユーザー名</label>
-                <input type="text" name="username" placeholder="ユーザー名を入力"/>
+                <label>管理者名</label>
+                <input type="text" name="username" placeholder="管理者名を入力"/>
             </div>
             
             <div class="input-group">

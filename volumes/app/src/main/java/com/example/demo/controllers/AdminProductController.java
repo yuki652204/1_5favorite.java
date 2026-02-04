@@ -1,38 +1,40 @@
 package com.example.demo.controllers;
 
-// Spring MVCの基本機能をインポート
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-
 // カスタムエディタ（フォームの値をオブジェクトに変換する機能）
 import java.beans.PropertyEditorSupport;
 
-// バリデーション（入力チェック）関連
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
-
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 // Spring MVCの基本アノテーション
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-// 【重要】Productクラスは entity パッケージ配下にあるため、正しいパスでインポート
-import com.example.demo.models.entity.Product;
+// バリデーション（入力チェック）関連
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+// Spring MVCの基本機能をインポート
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+// リダイレクト時にメッセージを渡すための機能
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 // その他のモデルクラス
 import com.example.demo.models.ProductVariant;
-
+// 【重要】Productクラスは entity パッケージ配下にあるため、正しいパスでインポート
+import com.example.demo.models.entity.Product;
+import com.example.demo.repositories.ColorRepository;
 // データベースアクセス用のリポジトリ
 import com.example.demo.repositories.InquiryRepository;
 import com.example.demo.repositories.ProductRepository;
-import com.example.demo.repositories.ColorRepository;
 import com.example.demo.repositories.SizeRepository;
-
+import com.example.demo.services.InquiryService;
 // ビジネスロジックを担当するサービス
-import com.example.demo.services.ProductService; 
-
-// リダイレクト時にメッセージを渡すための機能
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import com.example.demo.services.ProductService;
 
 /**
  * 管理画面の商品管理を担当するコントローラー
@@ -49,23 +51,31 @@ public class AdminProductController {
     private final ColorRepository colorRepository;     // 色マスタデータへのアクセス
     private final SizeRepository sizeRepository;       // サイズマスタデータへのアクセス
     private final ProductService productService;       // 商品関連のビジネスロジック
+    
+    private final InquiryService inquiryService; 
+    // ----------------
+
+    
 
     /**
      * コンストラクタインジェクション（推奨される依存性注入の方法）
      * Springが起動時に自動的に必要なインスタンスを渡してくれる
      */
+ // --- 修正後のコンストラクタ（これ1つだけにしてください） ---
     public AdminProductController(
             ProductRepository productRepository,
             InquiryRepository inquiryRepository,
             ColorRepository colorRepository,
             SizeRepository sizeRepository,
-            ProductService productService
+            ProductService productService,
+            InquiryService inquiryService // 追加
             ) {
         this.productRepository = productRepository;
         this.inquiryRepository = inquiryRepository;
         this.colorRepository = colorRepository;
         this.sizeRepository = sizeRepository;
         this.productService = productService;
+        this.inquiryService = inquiryService; // ここで代入
     }
 
     /**
@@ -179,7 +189,7 @@ public class AdminProductController {
      * URL: POST /admin/products/delete/{id}
      * 参照整合性チェック（お気に入り登録があるか）をService層で行う
      */
-    @PostMapping("/delete/{id}")
+     @PostMapping("/delete/{id}")
     public String deleteProduct(
             @PathVariable Long id,                    // URLパスから商品IDを取得
             RedirectAttributes redirectAttributes) {  // リダイレクト先にメッセージを渡すための機能
@@ -195,11 +205,28 @@ public class AdminProductController {
         // 商品一覧ページへリダイレクト
         return "redirect:/admin/products";
     }
+    
+    
 
     /**
      * 商品編集画面の表示
      * URL: GET /admin/products/edit/{id}
      */
+    
+    @PostMapping("/inquiry/delete/{id}")
+    @ResponseBody // HTMLではなくデータを返す
+    public ResponseEntity<String> deleteInquiry(@PathVariable Long id) {
+        try {
+            // 削除処理を実行
+        	
+            inquiryService.delete(id);
+            return ResponseEntity.ok("削除しました");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("エラーが発生しました");
+        }
+    }
+    
+    
     @GetMapping("/edit/{id}")
     public String edit(
             @PathVariable Long id,  // URLパスから商品IDを取得
@@ -259,11 +286,5 @@ public class AdminProductController {
      * お問い合わせの削除処理
      * URL: POST /admin/products/inquiry/delete/{id}
      */
-    @PostMapping("/inquiry/delete/{id}")
-    public String deleteInquiry(@PathVariable Long id) {  // URLパスからお問い合わせIDを取得
-        // お問い合わせをデータベースから削除
-        inquiryRepository.deleteById(id);
-        // 商品一覧ページへリダイレクト
-        return "redirect:/admin/products";
-    }
+   
 }

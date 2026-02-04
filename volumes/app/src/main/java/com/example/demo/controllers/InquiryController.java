@@ -79,4 +79,8 @@ public class InquiryController {
         
         return "root/form2"; // メッセージを含めて入力画面2を再表示する
     }
+    
+ // Controller内大文字から小文字に変換
+//    inquiryForm.setMail(inquiryForm.getMail().toLowerCase());
+    
 }

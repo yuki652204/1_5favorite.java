@@ -2,9 +2,10 @@ package com.example.demo.services; // このクラスが「サービス層」に
 
 import org.springframework.stereotype.Service; // Springにこのクラスを管理対象（Bean）として認識させるためのインポート
 import org.springframework.transaction.annotation.Transactional; // データベースの「トランザクション（ひとまとまりの処理）」を管理するためのインポート
+
 import com.example.demo.models.User; // ユーザー情報（Entity）を扱うためのインポート
 import com.example.demo.repositories.UserRepository; // データベース操作を行うためのインポート
-
+import java.util.List;
 @Service // Spring Bootに対し、このクラスが「業務ロジックを書く場所（Service）」であることを教える。これによりControllerに注入（DI）可能になる
 @Transactional // このクラスの全メソッドをトランザクションの対象にする。処理が成功すれば確定（Commit）、失敗（例外）すれば元に戻す（Rollback）
 public class UserService {
@@ -27,6 +28,12 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException("ユーザーが見つかりません。ID: " + id));
     }
 
+    @Transactional(readOnly = true)
+    public List<User> getAllUsers() {
+        // 全件検索して結果をリストで返す
+        return userRepository.findAll();
+    }
+    
     /**
      * ユーザーの名前を更新するメソッド
      */

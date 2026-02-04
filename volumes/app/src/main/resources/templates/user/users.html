@@ -15,7 +15,7 @@
         </p>
 
         <p>
-            <a th:href="@{/user/edit(id=${user.id})}" class="edit-link">名前を編集する</a>
+			<a th:href="@{/user/edit/{id}(id=${user.id})}" class="edit-link">名前を編集する</a>
         </p>		<!--  Controller側の受け口@GetMapping("/edit")にいく-->
         
         <hr>
