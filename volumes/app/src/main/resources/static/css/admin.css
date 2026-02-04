@@ -71,6 +71,33 @@ body {
        form {
            display: inline;
        }
+	   
+	   /* モダンなログアウトボタンのスタイル */
+	   .btn-logout {
+	       display: inline-block;
+	       padding: 10px 20px;
+	       font-size: 14px;
+	       font-weight: 600;
+	       color: #e74c3c; /* 警告を連想させる赤系、でもきつすぎない色 */
+	       text-decoration: none;
+	       border: 2px solid #e74c3c;
+	       border-radius: 30px; /* 角丸でモダンに */
+	       transition: all 0.3s ease; /* アニメーションを滑らかに */
+	       background-color: transparent;
+	   }
+
+	   /* マウスを乗せた時の動き（ホバー） */
+	   .btn-logout:hover {
+	       background-color: #e74c3c;
+	       color: #ffffff;
+	       box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3); /* 柔らかい影 */
+	       transform: translateY(-2px); /* 少し浮き上がる */
+	   }
+
+	   /* クリックした瞬間 */
+	   .btn-logout:active {
+	       transform: translateY(0);
+	   }
 
 /* =========================
    管理画面：新規作成ボタン
