@@ -27,6 +27,7 @@ public class LoginController {
     // ユーザーログイン後の画面（ホーム画面）
     @GetMapping("/user/home")
     public String userHome() {
+    	System.out.println("DEBUG: /user/home メソッドが呼び出されました（ログイン成功後）");
         return "root/index"; // src/main/resources/templates/user/home.html を表示
     }
 }
