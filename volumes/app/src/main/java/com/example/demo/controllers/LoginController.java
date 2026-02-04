@@ -13,10 +13,10 @@ public class LoginController {
     }
 
     // 管理者ログイン後の画面（リスト画面など）
-    @GetMapping("/admin/list")
-    public String adminList() {
-        return "admin/list"; // .html は不要です！
-    }
+//    @GetMapping("/admin/list")
+//    public String adminList() {
+//        return "admin/list"; // .html は不要です！
+//    }
 
     // ユーザー用ログイン画面の表示
     @GetMapping("/user/login")
